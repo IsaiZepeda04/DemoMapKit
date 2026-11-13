@@ -3,7 +3,7 @@
 
 ### Universidad Tecnológica de El Salvador (UTEC)
 
-**Alumno:** Leonardo Isai Zepeda Tolentino
+**Alumno:** Leonardo Isai Zepeda Tolentino  
 **Asignatura:** Electiva Técnica Profesional IV (ETPS4)  
 **Año:** 2026  
 **Plataforma:** iOS  
