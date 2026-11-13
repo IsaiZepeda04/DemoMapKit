@@ -1,159 +1,277 @@
 
-# MapKit + Look Around | Demo iOS
+# 🗺️ Demo MapKit + Look Around en iOS
 
-Aplicación demostrativa desarrollada en SwiftUI que
-permite visualizar ubicaciones geográficas mediante
-MapKit y explorar vistas panorámicas utilizando
-Look Around de Apple.
+### Universidad Tecnológica de El Salvador (UTEC)
 
-Este proyecto fue desarrollado con fines académicos
-para demostrar la integración de herramientas de
-geolocalización y visualización en aplicaciones iOS.
+**Alumno:** Leonardo Isai Zepeda Tolentino
+**Asignatura:** Electiva Técnica Profesional IV (ETPS4)  
+**Año:** 2026  
+**Plataforma:** iOS  
+**Entorno de desarrollo:** Xcode 14.2  
 
-## Tecnologías utilizadas
+---
 
-- Swift 5
-- SwiftUI
-- MapKit
-- Look Around
-- UIKit
-- Xcode 14.2
-- iOS 16.0 o superior
+## 📖 Descripción del proyecto
 
-## Funcionalidades principales
+Este proyecto consiste en una aplicación demostrativa desarrollada en SwiftUI que permite visualizar una ubicación geográfica mediante MapKit y explorar su entorno utilizando Look Around, una funcionalidad de Apple Maps que ofrece imágenes panorámicas a nivel de calle.
 
-La aplicación permite:
+La aplicación utiliza como ejemplo **Times Square, Nueva York, Estados Unidos**.
 
-- Visualizar la ubicación de Times Square, Nueva York.
-- Mostrar información geográfica y coordenadas.
-- Utilizar un mapa interactivo mediante MapKit.
-- Centrar el mapa en una ubicación determinada.
-- Consultar vistas panorámicas mediante Look Around.
-- Cambiar entre modo demostración y modo real.
+Su propósito es demostrar cómo integrar ambos componentes en una aplicación iOS, permitiendo consultar información geográfica de forma sencilla e interactiva.
 
-## Modos de funcionamiento
+La aplicación no utiliza una base de datos, ya que la información está definida directamente en el código fuente.
 
-### Modo demostración
+---
 
-Este modo permite explorar la interfaz sin depender
-de los servicios de Apple Maps.
+## 🎯 Objetivo general
 
-Incluye:
+Demostrar el funcionamiento e integración de MapKit y Look Around en una aplicación iOS desarrollada con SwiftUI, permitiendo visualizar información geográfica y explorar una ubicación mediante imágenes panorámicas.
 
-- Mapa ilustrativo de Times Square.
-- Controles para acercar y alejar la imagen.
-- Desplazamiento del mapa.
-- Botón para centrar la ubicación.
-- Vista panorámica ilustrativa con desplazamiento
-  horizontal.
+## Objetivos específicos
 
-Nota: Este modo utiliza imágenes locales y simula
-la interacción. No proporciona mapas geográficos
-reales ni navegación panorámica de 360 grados.
+- Implementar MapKit para visualizar una ubicación en un mapa interactivo.
+- Integrar Look Around para explorar imágenes panorámicas a nivel de calle.
+- Organizar la información mediante estructuras de datos en Swift.
+- Diseñar una interfaz sencilla utilizando componentes nativos de SwiftUI.
+- Implementar la presentación y el cierre de la vista panorámica.
 
-### Modo MapKit real
+---
 
-Utiliza las herramientas oficiales de Apple:
+## 🛠️ Tecnologías utilizadas
 
-- MapKit para representar mapas interactivos.
-- MKCoordinateRegion para definir la región.
-- MapMarker para señalar ubicaciones.
-- MKLookAroundSceneRequest para solicitar escenas.
-- MKLookAroundViewController para visualizar
-  Look Around.
+| Tecnología | Función |
+|------------|---------|
+| Swift | Lenguaje de programación principal. |
+| SwiftUI | Construcción de la interfaz gráfica. |
+| MapKit | Visualización de mapas y coordenadas geográficas. |
+| Look Around | Visualización panorámica a nivel de calle. |
+| UIKit | Integración de MKLookAroundViewController. |
+| Xcode 14.2 | Entorno de desarrollo utilizado. |
 
-Este modo requiere acceso a los servicios de Apple
-Maps y un entorno compatible.
+---
 
-## Estructura del proyecto
+## 📱 Funcionalidades principales
+
+### 1. Visualización del mapa
+
+La aplicación muestra un mapa interactivo mediante MapKit, con un marcador rojo ubicado en Times Square.
+
+También presenta:
+- Nombre de la ubicación.
+- Descripción.
+- Latitud y longitud.
+- Botón para abrir Look Around.
+- Botón para centrar nuevamente el mapa.
+
+### 2. Vista Look Around
+
+Al seleccionar el botón **Ver Look Around**, la aplicación solicita una escena panorámica mediante los servicios de Apple Maps.
+
+Si la ubicación cuenta con cobertura, se abre una vista interactiva que permite explorar visualmente el entorno.
+
+### 3. Centrar mapa
+
+El botón **Centrar mapa** permite regresar a la ubicación inicial después de desplazarse por el mapa.
+
+### 4. Manejo de errores
+
+La aplicación muestra mensajes cuando:
+- No existe cobertura de Look Around para una ubicación.
+- Ocurre un error al solicitar la escena panorámica.
+
+También presenta un indicador de carga mientras obtiene la información.
+
+---
+
+## 🏗️ Organización de la información
+
+La aplicación utiliza una estructura de datos de Swift llamada `Lugar`, encargada de almacenar la información geográfica.
+
+```swift
+struct Lugar: Identifiable {
+    let id = UUID()
+    let nombre: String
+    let descripcion: String
+    let latitud: Double
+    let longitud: Double
+}
+```
+
+### Ubicación utilizada
+
+```swift
+let lugar = Lugar(
+    nombre: "Times Square",
+    descripcion: "Nueva York, Estados Unidos",
+    latitud: 40.7580,
+    longitud: -73.9855
+)
+```
+
+Los datos se manejan directamente en memoria.
+
+**No se utiliza Core Data, SQLite, Firebase ni otro sistema de almacenamiento persistente.**
+
+MapKit y Look Around consultan los servicios de Apple para obtener los mapas y las escenas panorámicas.
+
+---
+
+## 🧩 Organización de la aplicación
+
+El proyecto utiliza una organización sencilla basada en el patrón **Modelo–Vista (MV)**.
+
+### Modelo
+
+La estructura `Lugar` almacena los datos de la ubicación.
+
+### Vista
+
+`ContentView` presenta el mapa, los datos geográficos y los botones.
+
+### Componentes de visualización
+
+MapKit representa las coordenadas mediante un mapa interactivo y Look Around muestra la escena panorámica.
+
+SwiftUI utiliza `@State` para administrar los cambios de la interfaz.
+
+No se implementa una arquitectura MVVM completa, debido a que se trata de una demostración sencilla.
+
+---
+
+## 📂 Estructura del proyecto
 
 ```text
 DemoMapKit/
-|
-|-- DemoMapKitApp.swift
-|-- ContentView.swift
-|-- LookAroundView.swift
-|
-|-- Assets.xcassets/
-    |-- MapaDemo.imageset/
-    |-- PanoramaDemo.imageset/
+│
+├── DemoMapKitApp.swift
+├── ContentView.swift
+├── LookAroundView.swift
+├── Assets.xcassets/
+└── README.md
 ```
 
-### Descripción de archivos
+### Descripción de los archivos
 
-**DemoMapKitApp.swift**
+| Archivo | Descripción |
+|---------|-------------|
+| DemoMapKitApp.swift | Punto de entrada de la aplicación. |
+| ContentView.swift | Contiene el modelo Lugar, el mapa, los botones y la lógica principal. |
+| LookAroundView.swift | Integra MKLookAroundViewController con SwiftUI mediante UIViewControllerRepresentable. |
+| Assets.xcassets | Recursos gráficos de la aplicación. |
+| README.md | Documentación del proyecto. |
 
-Archivo principal que inicia la aplicación.
+---
 
-**ContentView.swift**
+## 💻 Requisitos
 
-Contiene la interfaz principal, la estructura Lugar,
-el mapa y la lógica de los modos de visualización.
+Para ejecutar el proyecto se necesita:
 
-**LookAroundView.swift**
+- macOS compatible con Xcode 14.2.
+- Xcode 14.2.
+- Swift 5.
+- iOS 16.0 o superior.
+- Simulador de iOS o dispositivo físico compatible.
+- Conexión a Internet para consultar los servicios de Apple Maps.
 
-Permite integrar MKLookAroundViewController
-con SwiftUI mediante UIViewControllerRepresentable.
+**Nota:** La disponibilidad de Look Around depende de la cobertura geográfica de Apple y de las capacidades del entorno de ejecución.
 
-**Assets.xcassets**
+---
 
-Contiene las imágenes utilizadas para el modo
-demostración.
+## 🚀 Instalación y ejecución
 
-## Organización de los datos
+### Paso 1. Clonar el repositorio
 
-Se utiliza una estructura llamada Lugar para
-almacenar la información de una ubicación.
+```bash
+git clone https://github.com/IsaiZepeda04/DemoMapKit
+```
 
-Los principales datos son:
+### Paso 2. Abrir el proyecto
 
-- Nombre
-- Descripción
-- Latitud
-- Longitud
+Abrir el archivo `DemoMapKit.xcodeproj` desde Xcode.
 
-No se utiliza una base de datos, ya que los datos
-se encuentran definidos directamente en el código.
+### Paso 3. Seleccionar el dispositivo
 
-## Cómo ejecutar el proyecto
+Elegir un simulador de iOS 16 o superior o un dispositivo físico compatible.
 
-1. Clonar o descargar este repositorio.
-2. Abrir el archivo DemoMapKit.xcodeproj en Xcode.
-3. Seleccionar un simulador con iOS 16 o superior.
-4. Ejecutar la aplicación.
-5. Seleccionar el modo de visualización deseado.
+### Paso 4. Ejecutar la aplicación
 
-## Limitaciones
+Presionar el botón **Run** de Xcode o utilizar:
 
-El proyecto fue desarrollado utilizando Xcode 14.2.
+```text
+Command + R
+```
 
-Durante las pruebas en un entorno macOS virtualizado
-mediante VMware se identificaron limitaciones
-gráficas que impiden visualizar correctamente
-los servicios de Apple Maps.
+### Paso 5. Probar las funcionalidades
 
-Por este motivo se incorporó un modo demostración
-que utiliza recursos locales.
+1. Visualizar Times Square en el mapa.
+2. Desplazarse por el mapa.
+3. Presionar **Centrar mapa**.
+4. Presionar **Ver Look Around**.
+5. Explorar la escena panorámica disponible.
+6. Cerrar Look Around para regresar a la pantalla principal.
 
-La implementación real de MapKit y Look Around
-se conserva en el proyecto, pero su funcionamiento
-requiere un entorno compatible y disponibilidad
-de los servicios de Apple.
+---
 
-## Objetivo académico
+## 🔄 Flujo de navegación
 
-Demostrar el manejo de información geográfica
-en aplicaciones iOS, utilizando SwiftUI, MapKit
-y Look Around.
+```text
+Inicio de la aplicación
+         |
+         v
+ Pantalla principal
+         |
+         | Ver Look Around
+         v
+    Vista panorámica
+         |
+         | Cerrar / Regresar
+         v
+ Pantalla principal
+```
 
-También se busca comprender la organización de
-datos mediante estructuras de Swift y la integración
-de componentes de UIKit dentro de SwiftUI.
+El botón **Centrar mapa** solamente modifica la región visible del mapa y no abre otra pantalla.
 
-## Estado del proyecto
+---
 
-Versión académica demostrativa.
+## ⚠️ Limitaciones
 
-La interfaz y el modo demostración están
-implementados. La integración real requiere
-validación en un entorno compatible.
+- La demostración utiliza una única ubicación predefinida.
+- No cuenta con una base de datos.
+- No permite agregar ni editar ubicaciones.
+- No implementa autenticación de usuarios.
+- Look Around requiere cobertura y acceso a los servicios de Apple.
+- Su funcionamiento puede variar según el simulador o dispositivo utilizado.
+
+---
+
+## ✅ Conclusiones
+
+La implementación demuestra que MapKit y Look Around pueden integrarse en una aplicación desarrollada con SwiftUI para presentar información geográfica de manera visual e interactiva.
+
+La estructura `Lugar` facilita la organización de los datos, mientras que `@State` permite controlar los cambios de la interfaz.
+
+Al tratarse de una aplicación demostrativa, no fue necesario implementar una base de datos ni una arquitectura compleja.
+
+El proyecto permite comprender el uso de los componentes nativos de Apple y su posible aplicación futura en soluciones que requieran información geográfica.
+
+---
+
+## 📚 Referencias
+
+- [Apple Developer – MapKit](https://developer.apple.com/documentation/mapkit/)
+- [Apple Developer – SwiftUI](https://developer.apple.com/documentation/swiftui/)
+- [Apple Developer – MKLookAroundViewController](https://developer.apple.com/documentation/mapkit/mklookaroundviewcontroller)
+- [Apple Developer – MKLookAroundSceneRequest](https://developer.apple.com/documentation/mapkit/mklookaroundscenerequest)
+
+---
+
+## 🎓 Información académica
+
+**Institución:** Universidad Tecnológica de El Salvador (UTEC)  
+**Asignatura:** Electiva Técnica Profesional IV (ETPS4)  
+**Proyecto:** Demostración de MapKit + Look Around en iOS  
+**Año:** 2026  
+
+---
+
+**Proyecto desarrollado con fines académicos para demostrar la integración de MapKit y Look Around en aplicaciones iOS.**
